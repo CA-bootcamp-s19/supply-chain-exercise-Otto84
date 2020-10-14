@@ -20,11 +20,6 @@ contract SupplyChain {
   */
   mapping (uint => Item) public items;
 
-
-
-
-
-
   /* Add a line that creates an enum called State. This should have 4 states
     ForSale
     Sold
@@ -45,8 +40,8 @@ contract SupplyChain {
     uint = sku;
     uint = price;
     bool = state;
-    address = seller;
-    address = buyer;
+    address payable = seller;
+    address payable = buyer;
   }
     /* Create 4 events with the same name as each possible State (see above)
     Prefix each event with "Log" for clarity, so the forSale event will be called "LogForSale"
