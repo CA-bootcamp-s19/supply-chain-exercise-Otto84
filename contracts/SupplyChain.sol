@@ -12,10 +12,18 @@ contract SupplyChain {
   address public owner;
 
   /* Add a variable called skuCount to track the most recent sku # */
+  //skuCount = ;
+
 
   /* Add a line that creates a public mapping that maps the SKU (a number) to an Item.
      Call this mappings items
   */
+  mapping (uint => Item) public items;
+
+
+
+
+
 
   /* Add a line that creates an enum called State. This should have 4 states
     ForSale
@@ -24,6 +32,7 @@ contract SupplyChain {
     Received
     (declaring them in this order is important for testing)
   */
+  enum State {ForSale, Sold, Shipped, Received}
 
   /* Create a struct named Item.
     Here, add a name, sku, price, state, seller, and buyer
@@ -31,8 +40,8 @@ contract SupplyChain {
     if you need help you can ask around :)
     Be sure to add "payable" to addresses that will be handling value transfer
   */
-
-  /* Create 4 events with the same name as each possible State (see above)
+  
+    /* Create 4 events with the same name as each possible State (see above)
     Prefix each event with "Log" for clarity, so the forSale event will be called "LogForSale"
     Each event should accept one argument, the sku */
 
