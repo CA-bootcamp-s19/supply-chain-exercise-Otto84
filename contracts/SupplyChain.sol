@@ -12,13 +12,13 @@ contract SupplyChain {
   address public owner;
 
   /* Add a variable called skuCount to track the most recent sku # */
-  uint public skuCount;
+  uint private skuCount;
 
 
   /* Add a line that creates a public mapping that maps the SKU (a number) to an Item.
      Call this mappings items
   */
-  mapping (uint => Item) public items;
+  mapping(uint => Item) public items;
 
   /* Add a line that creates an enum called State. This should have 4 states
     ForSale
@@ -27,7 +27,8 @@ contract SupplyChain {
     Received
     (declaring them in this order is important for testing)
   */
-  enum State {ForSale, Sold, Shipped, Received}
+  enum State { ForSale, Sold, Shipped, Received }
+
 
   /* Create a struct named Item.
     Here, add a name, sku, price, state, seller, and buyer
@@ -36,18 +37,18 @@ contract SupplyChain {
     Be sure to add "payable" to addresses that will be handling value transfer
   */
   struct Item {
-    string = name;
-    uint = sku;
-    uint = price;
-    bool = state;
-    address payable = seller;
-    address payable = buyer;
+    string name;
+    uint sku;
+    uint price;
+    State state;
+    address payable seller;
+    address payable buyer;
   }
     /* Create 4 events with the same name as each possible State (see above)
     Prefix each event with "Log" for clarity, so the forSale event will be called "LogForSale"
     Each event should accept one argument, the sku */
     event LogForSale(uint sku);
-    event LogSold(uint sku);
+    event LogSold(uint indexed sku);
     event LogShipped(uint sku);
     event LogReceived(uint sku);
 
@@ -66,6 +67,7 @@ contract SupplyChain {
     uint _price = items[_sku].price;
     uint amountToRefund = msg.value - _price;
     items[_sku].buyer.transfer(amountToRefund);
+
   }
 
   /* For each of the following modifiers, use what you learned about modifiers
@@ -79,10 +81,11 @@ contract SupplyChain {
    */
 
 
-  /// modifier forSale
-  /// modifier sold
-  /// modifier shipped
-  /// modifier received
+  modifier forSale() { require( Item.State == forSale );
+     _;}
+  //modifier sold() { _;}
+  //modifier shipped() { _;}
+  //modifier received() { _;}
 
 
   constructor() public {
@@ -122,7 +125,7 @@ contract SupplyChain {
   {}
 
   /* We have these functions completed so we can run tests, just ignore it :) */
-  /*
+
   function fetchItem(uint _sku) public view returns (string memory name, uint sku, uint price, uint state, address seller, address buyer) {
     name = items[_sku].name;
     sku = items[_sku].sku;
@@ -131,6 +134,6 @@ contract SupplyChain {
     seller = items[_sku].seller;
     buyer = items[_sku].buyer;
     return (name, sku, price, state, seller, buyer);
-  } */
+  }
 
 }
