@@ -150,6 +150,7 @@ contract SupplyChain {
   function receiveItem(uint sku)
     public
   {
+    items[sku].state = State.Received;
     emit LogReceived(sku);
   }
 
