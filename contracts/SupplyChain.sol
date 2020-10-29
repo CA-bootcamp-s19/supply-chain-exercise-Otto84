@@ -48,7 +48,7 @@ contract SupplyChain {
     Prefix each event with "Log" for clarity, so the forSale event will be called "LogForSale"
     Each event should accept one argument, the sku */
     event LogForSale(uint sku);
-    event LogSold(uint indexed sku);
+    event LogSold(uint sku);
     event LogShipped(uint sku);
     event LogReceived(uint sku);
 
@@ -57,6 +57,10 @@ contract SupplyChain {
 
 
 /* Create a modifer that checks if the msg.sender is the owner of the contract */
+  modifier chechkOwner() {
+    require(msg.sender == owner);
+    _;
+  }
 
   modifier verifyCaller (address _address) { require (msg.sender == _address); _;}
 
@@ -81,7 +85,7 @@ contract SupplyChain {
    */
 
 
-  modifier forSale() { require( Item.State == forSale );
+  modifier forSale() { require( Item.State == name );
      _;}
   //modifier sold() { _;}
   //modifier shipped() { _;}
