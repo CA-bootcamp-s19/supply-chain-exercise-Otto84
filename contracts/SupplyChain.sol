@@ -12,7 +12,7 @@ contract SupplyChain {
   address public owner;
 
   /* Add a variable called skuCount to track the most recent sku # */
-  uint private skuCount;
+  uint public skuCount;
 
 
   /* Add a line that creates a public mapping that maps the SKU (a number) to an Item.
@@ -47,10 +47,10 @@ contract SupplyChain {
     /* Create 4 events with the same name as each possible State (see above)
     Prefix each event with "Log" for clarity, so the forSale event will be called "LogForSale"
     Each event should accept one argument, the sku */
-    event LogForSale(uint sku);
-    event LogSold(uint sku);
-    event LogShipped(uint sku);
-    event LogReceived(uint sku);
+    event LogForSale(uint _sku);
+    event LogSold(uint _sku);
+    event LogShipped(uint _sku);
+    event LogReceived(uint _sku);
 
 
 
@@ -85,8 +85,11 @@ contract SupplyChain {
    */
 
 
-  modifier forSale() { require( Item.State == name );
-     _;}
+  modifier forSale(uint _sku)
+    {
+      require( items[_sku].state == State.ForSale && items[_sku].price >=0);
+      _;
+    }
   //modifier sold() { _;}
   //modifier shipped() { _;}
   //modifier received() { _;}
