@@ -9,10 +9,10 @@ pragma solidity >=0.6.0 <0.7.0;
 contract SupplyChain {
 
 
-  address public owner;
+  address owner;
 
   /* Add a variable called skuCount to track the most recent sku # */
-  uint public skuCount;
+  uint skuCount;
 
 
   /* Add a line that creates a public mapping that maps the SKU (a number) to an Item.
@@ -128,20 +128,30 @@ contract SupplyChain {
     refunded any excess ether sent. Remember to call the event associated with this function!*/
 
   function buyItem(uint sku)
-    public
-  {}
+    public payable forSale(sku) paidEnough(items[sku].price)
+  {
+    items[sku].seller.transfer(items[sku].price);
+    items[sku].buyer = msg.sender;
+    items[sku].state = State.Sold;
+    emit LogSold(sku);
+  }
 
   /* Add 2 modifiers to check if the item is sold already, and that the person calling this function
   is the seller. Change the state of the item to shipped. Remember to call the event associated with this function!*/
   function shipItem(uint sku)
-    public
-  {}
+    public sold(sku)
+  {
+    items[sku].state = State.Shipped;
+    emit LogShipped(sku);
+  }
 
   /* Add 2 modifiers to check if the item is shipped already, and that the person calling this function
   is the buyer. Change the state of the item to received. Remember to call the event associated with this function!*/
   function receiveItem(uint sku)
     public
-  {}
+  {
+    emit LogReceived(sku);
+  }
 
   /* We have these functions completed so we can run tests, just ignore it :) */
 
