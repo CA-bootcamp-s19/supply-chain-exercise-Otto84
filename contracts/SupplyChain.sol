@@ -87,7 +87,7 @@ contract SupplyChain {
 
   modifier forSale(uint _sku)
     {
-      require( items[_sku].state == State.ForSale && items[_sku].price >=0);
+      require( items[_sku].state == State.ForSale && items[_sku].price != 0);
       _;
     }
   modifier sold(uint _sku)
