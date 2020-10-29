@@ -47,10 +47,10 @@ contract SupplyChain {
     /* Create 4 events with the same name as each possible State (see above)
     Prefix each event with "Log" for clarity, so the forSale event will be called "LogForSale"
     Each event should accept one argument, the sku */
-    event LogForSale(uint _sku);
-    event LogSold(uint _sku);
-    event LogShipped(uint _sku);
-    event LogReceived(uint _sku);
+    event LogForSale(uint indexed _sku);
+    event LogSold(uint indexed _sku);
+    event LogShipped(uint indexed _sku);
+    event LogReceived(uint indexed _sku);
 
 
 
