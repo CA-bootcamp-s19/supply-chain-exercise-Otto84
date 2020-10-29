@@ -100,7 +100,11 @@ contract SupplyChain {
     require(items[_sku].state == State.Shipped);
     _;
   }
-  //modifier received() { _;}
+  modifier received(uint _sku)
+  {
+    require(items[_sku].state == State.Received);
+    _;
+  }
 
 
   constructor() public {
